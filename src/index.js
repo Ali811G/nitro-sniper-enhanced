@@ -223,6 +223,16 @@ async function getPaymentSourceId() {
     process.exit();
   }
 }
+// Create an HTTP server
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Nitro Sniper Enhanced is running!\n");
+});
+
+// Start the HTTP server
+server.listen(PORT, () => {
+  logging.info(`Server is running on http://localhost:${PORT}`);
+});
 
 // eslint-disable-next-line no-restricted-syntax
 for (const token of tokens) {
