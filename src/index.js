@@ -7,11 +7,14 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. */
+import http from 'http'; // Import the HTTP module
 import dotenv from "dotenv";
 dotenv.config();
 
 import axios from "axios";
 import rateLimit from "axios-rate-limit";
+
+const PORT = process.env.PORT || 8000;
 
 const http = rateLimit(axios.create(), {
   maxRequests: 10,
@@ -178,7 +181,7 @@ if (replit !== "true" && replit !== "false") {
       res.write("I'm alive!");
       res.end();
     })
-    .listen(8080);
+    .listen(8000);
 }
 // eslint-disable-next-line consistent-return
 async function getPaymentSourceId() {
