@@ -7,7 +7,7 @@ This program is free software: you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. */
-import http from 'http'; // Import the HTTP module
+import httpServer from "http"; // Renamed to avoid conflict
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -16,7 +16,7 @@ import rateLimit from "axios-rate-limit";
 
 const PORT = process.env.PORT || 8000;
 
-const http = rateLimit(axios.create(), {
+const httpClient = rateLimit(axios.create(), {
   maxRequests: 10,
   perMilliseconds: 60000,
 });
@@ -224,7 +224,7 @@ async function getPaymentSourceId() {
   }
 }
 // Create an HTTP server
-const server = http.createServer((req, res) => {
+const server = httpServer.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
   res.end("Nitro Sniper Enhanced is running!\n");
 });
