@@ -13,6 +13,8 @@ dotenv.config();
 
 import axios from "axios";
 import rateLimit from "axios-rate-limit";
+import fs from "fs";
+import path from "path"; // Import path for handling file paths
 
 const PORT = process.env.PORT || 8000;
 
@@ -21,16 +23,16 @@ const httpClient = rateLimit(axios.create(), {
   perMilliseconds: 60000,
 });
 
-import fs from "fs";
-
 import pkg from "discord.js-light";
 const { Client } = pkg;
 
 import notes from "./notes/all.js";
 import { Webhook } from "./webhooks.js";
-import packageJson from "../package.json" assert { type: "json" };
 
+// Replace the JSON import with a file read
+const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8'));
 const version = packageJson.version;
+
 import logging from "./logging/logging.js";
 
 const tokens = process.env.guildTokens?.split(",").filter((item) => item);
@@ -104,6 +106,7 @@ if (
     `{blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`,
   );
 }
+
 const nitro_webhookclient = new Webhook(nitro_webhookUrl, "nitro");
 const notes_webhookclient = new Webhook(notes_webhookUrl, "notes");
 
@@ -183,6 +186,7 @@ if (replit !== "true" && replit !== "false") {
     })
     .listen(8000);
 }
+
 // eslint-disable-next-line consistent-return
 async function getPaymentSourceId() {
   try {
@@ -223,6 +227,7 @@ async function getPaymentSourceId() {
     process.exit();
   }
 }
+
 // Create an HTTP server
 const server = httpServer.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
