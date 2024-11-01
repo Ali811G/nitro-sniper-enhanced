@@ -30,6 +30,9 @@ import notes from "./notes/all.js";
 import { Webhook } from "./webhooks.js";
 
 // Replace the JSON import with a file read
+const __filename = new URL(import.meta.url).pathname; 
+const __dirname = path.dirname(__filename);
+
 const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf-8'));
 const version = packageJson.version;
 
